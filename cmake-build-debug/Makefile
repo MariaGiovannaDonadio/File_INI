@@ -75,16 +75,51 @@ CMAKE_BINARY_DIR = /Users/giorgiavans/Documents/laboratorio-programmazione/cmake
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
 
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
-.PHONY : rebuild_cache/fast
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -96,6 +131,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -130,71 +176,149 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named laboratorio_programmazione
+# Target rules for targets named File_INI
 
 # Build rule for target.
-laboratorio_programmazione: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 laboratorio_programmazione
-.PHONY : laboratorio_programmazione
+File_INI: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 File_INI
+.PHONY : File_INI
 
 # fast build rule for target.
-laboratorio_programmazione/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/laboratorio_programmazione.dir/build.make CMakeFiles/laboratorio_programmazione.dir/build
-.PHONY : laboratorio_programmazione/fast
+File_INI/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_INI.dir/build.make CMakeFiles/File_INI.dir/build
+.PHONY : File_INI/fast
 
-File_INI/INIManager.o: File_INI/INIManager.cpp.o
+#=============================================================================
+# Target rules for targets named core
 
-.PHONY : File_INI/INIManager.o
+# Build rule for target.
+core: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 core
+.PHONY : core
+
+# fast build rule for target.
+core/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/build
+.PHONY : core/fast
+
+#=============================================================================
+# Target rules for targets named test
+
+# Build rule for target.
+test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
+.PHONY : test
+
+# fast build rule for target.
+test/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test.dir/build.make test/CMakeFiles/test.dir/build
+.PHONY : test/fast
+
+#=============================================================================
+# Target rules for targets named gmock
+
+# Build rule for target.
+gmock: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock
+.PHONY : gmock
+
+# fast build rule for target.
+gmock/fast:
+	$(MAKE) $(MAKESILENT) -f test/lib/googletest/googlemock/CMakeFiles/gmock.dir/build.make test/lib/googletest/googlemock/CMakeFiles/gmock.dir/build
+.PHONY : gmock/fast
+
+#=============================================================================
+# Target rules for targets named gmock_main
+
+# Build rule for target.
+gmock_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock_main
+.PHONY : gmock_main
+
+# fast build rule for target.
+gmock_main/fast:
+	$(MAKE) $(MAKESILENT) -f test/lib/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make test/lib/googletest/googlemock/CMakeFiles/gmock_main.dir/build
+.PHONY : gmock_main/fast
+
+#=============================================================================
+# Target rules for targets named gtest_main
+
+# Build rule for target.
+gtest_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest_main
+.PHONY : gtest_main
+
+# fast build rule for target.
+gtest_main/fast:
+	$(MAKE) $(MAKESILENT) -f test/lib/googletest/googletest/CMakeFiles/gtest_main.dir/build.make test/lib/googletest/googletest/CMakeFiles/gtest_main.dir/build
+.PHONY : gtest_main/fast
+
+#=============================================================================
+# Target rules for targets named gtest
+
+# Build rule for target.
+gtest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest
+.PHONY : gtest
+
+# fast build rule for target.
+gtest/fast:
+	$(MAKE) $(MAKESILENT) -f test/lib/googletest/googletest/CMakeFiles/gtest.dir/build.make test/lib/googletest/googletest/CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
+
+INIManager.o: INIManager.cpp.o
+
+.PHONY : INIManager.o
 
 # target to build an object file
-File_INI/INIManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/laboratorio_programmazione.dir/build.make CMakeFiles/laboratorio_programmazione.dir/File_INI/INIManager.cpp.o
-.PHONY : File_INI/INIManager.cpp.o
+INIManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/INIManager.cpp.o
+.PHONY : INIManager.cpp.o
 
-File_INI/INIManager.i: File_INI/INIManager.cpp.i
+INIManager.i: INIManager.cpp.i
 
-.PHONY : File_INI/INIManager.i
+.PHONY : INIManager.i
 
 # target to preprocess a source file
-File_INI/INIManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/laboratorio_programmazione.dir/build.make CMakeFiles/laboratorio_programmazione.dir/File_INI/INIManager.cpp.i
-.PHONY : File_INI/INIManager.cpp.i
+INIManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/INIManager.cpp.i
+.PHONY : INIManager.cpp.i
 
-File_INI/INIManager.s: File_INI/INIManager.cpp.s
+INIManager.s: INIManager.cpp.s
 
-.PHONY : File_INI/INIManager.s
+.PHONY : INIManager.s
 
 # target to generate assembly for a file
-File_INI/INIManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/laboratorio_programmazione.dir/build.make CMakeFiles/laboratorio_programmazione.dir/File_INI/INIManager.cpp.s
-.PHONY : File_INI/INIManager.cpp.s
+INIManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/INIManager.cpp.s
+.PHONY : INIManager.cpp.s
 
-File_INI/main.o: File_INI/main.cpp.o
+main.o: main.cpp.o
 
-.PHONY : File_INI/main.o
+.PHONY : main.o
 
 # target to build an object file
-File_INI/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/laboratorio_programmazione.dir/build.make CMakeFiles/laboratorio_programmazione.dir/File_INI/main.cpp.o
-.PHONY : File_INI/main.cpp.o
+main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_INI.dir/build.make CMakeFiles/File_INI.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-File_INI/main.i: File_INI/main.cpp.i
+main.i: main.cpp.i
 
-.PHONY : File_INI/main.i
+.PHONY : main.i
 
 # target to preprocess a source file
-File_INI/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/laboratorio_programmazione.dir/build.make CMakeFiles/laboratorio_programmazione.dir/File_INI/main.cpp.i
-.PHONY : File_INI/main.cpp.i
+main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_INI.dir/build.make CMakeFiles/File_INI.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-File_INI/main.s: File_INI/main.cpp.s
+main.s: main.cpp.s
 
-.PHONY : File_INI/main.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-File_INI/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/laboratorio_programmazione.dir/build.make CMakeFiles/laboratorio_programmazione.dir/File_INI/main.cpp.s
-.PHONY : File_INI/main.cpp.s
+main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_INI.dir/build.make CMakeFiles/File_INI.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -203,14 +327,24 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... laboratorio_programmazione"
-	@echo "... File_INI/INIManager.o"
-	@echo "... File_INI/INIManager.i"
-	@echo "... File_INI/INIManager.s"
-	@echo "... File_INI/main.o"
-	@echo "... File_INI/main.i"
-	@echo "... File_INI/main.s"
+	@echo "... File_INI"
+	@echo "... core"
+	@echo "... gmock"
+	@echo "... gmock_main"
+	@echo "... gtest"
+	@echo "... gtest_main"
+	@echo "... test"
+	@echo "... INIManager.o"
+	@echo "... INIManager.i"
+	@echo "... INIManager.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 

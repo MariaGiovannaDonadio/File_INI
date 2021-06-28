@@ -1,12 +1,11 @@
-cmake_minimum_required(VERSION 3.19)
-project(laboratorio_programmazione)
+cmake_minimum_required(VERSION 3.12)
+project(File_INI)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories(File_INI)
+add_subdirectory(test)
+set(SOURCE_FILES INIManager.cpp INIManager.h NotFoundException.h)
 
-add_executable(laboratorio_programmazione
-        File_INI/INIManager.cpp
-        File_INI/INIManager.h
-        File_INI/main.cpp
-        File_INI/NotFoundException.h)
+add_executable(File_INI main.cpp)
+add_library(core ${SOURCE_FILES})
+target_link_libraries(File_INI core)

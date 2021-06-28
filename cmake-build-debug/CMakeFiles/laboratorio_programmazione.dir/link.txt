@@ -1,1 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/c++ -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/laboratorio_programmazione.dir/File_INI/INIManager.cpp.o CMakeFiles/laboratorio_programmazione.dir/File_INI/main.cpp.o -o laboratorio_programmazione 

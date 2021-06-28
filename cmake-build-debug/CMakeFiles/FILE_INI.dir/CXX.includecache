@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/giorgiavans/Documents/laboratorio-programmazione/INIManager.h
+iostream
+-
+map
+-
+list
+-
+NotFoundException.h
+/Users/giorgiavans/Documents/laboratorio-programmazione/NotFoundException.h
+
+/Users/giorgiavans/Documents/laboratorio-programmazione/NotFoundException.h
+exception
+-
+string
+-
+
+/Users/giorgiavans/Documents/laboratorio-programmazione/main.cpp
+iostream
+-
+INIManager.h
+/Users/giorgiavans/Documents/laboratorio-programmazione/INIManager.h
+
