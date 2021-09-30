@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <exception>
 
 void INIManager::readFile(std::string fileName) {
 
@@ -77,14 +78,15 @@ void INIManager::removeSection(std::string section) {
 
 void INIManager::changeSectionName(std::string oldName, std::string newName) {
     if(configuration.find(oldName) != configuration.end()){
-        std::map<std::string, std::string> params;
-        params = *configuration[oldName];
-        configuration.insert(make_pair(newName, std::unique_ptr<std::map<std::string, std::string>>(&params)));
+        configuration.insert(make_pair(newName, std::move(configuration[oldName])));
         configuration.erase(oldName);
+        if (comments.find(oldName) != comments.end()){
+            comments[newName] = comments[oldName];
+            comments.erase(oldName);
+        }
     }
     else
         throw NotFoundException("Section not found");
-
 }
 
 std::map<std::string, std::string> INIManager::getSection(std::string section) {
@@ -181,4 +183,3 @@ std::string INIManager::getCommentFromSection(std::string section) {
     } else
         throw NotFoundException("Section not found");
 }
-

@@ -6,7 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/giorgiavans/Documents/laboratorio-programmazione/test/lib/googletest/googlemock/src/gmock_main.cc" "/Users/giorgiavans/Documents/laboratorio-programmazione/cmake-build-debug/test/lib/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
   )
-set(CMAKE_CXX_COMPILER_ID "Clang")
+set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH

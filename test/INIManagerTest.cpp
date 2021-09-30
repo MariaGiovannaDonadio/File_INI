@@ -14,41 +14,41 @@ TEST(INITest, managerTest){
     EXPECT_EQ(im.getParamValueInSection("full screen", "screen"), "true");
     im.addParamToSection("full screen", "false", "screen");
     EXPECT_EQ(im.getParamValueInSection("full screen", "screen"), "false");
-    EXPECT_ANY_THROW(im.addParamToSection("section", "not", "added"));
-    EXPECT_ANY_THROW(im.getCommentFromSection("screen"));
+    EXPECT_THROW(im.addParamToSection("section", "not", "added"), NotFoundException);
+    EXPECT_THROW(im.getCommentFromSection("screen"), NotFoundException);
     im.addCommentToSection("this is a comment", "screen");
     EXPECT_EQ(im.getCommentFromSection("screen"), "this is a comment");
-    EXPECT_ANY_THROW(im.addCommentToSection("not added section", "fake comment"));
+    EXPECT_THROW(im.addCommentToSection("fake comment", "not added section"), NotFoundException);
     im.addSection("resolution");
     std::list<std::string> sections;
     sections.push_back("screen");
     EXPECT_EQ(im.findParamSection("full screen"), sections);
-    EXPECT_ANY_THROW(im.findParamSection("not added param"));
+    EXPECT_THROW(im.findParamSection("not added param"), NotFoundException);
     im.changeParamInSection("full screen", "true", "screen");
     EXPECT_EQ(im.getParamValueInSection("full screen", "screen"), "true");
-    EXPECT_ANY_THROW(im.getParamValueInSection("not added param", "screen"));
-    EXPECT_ANY_THROW(im.getParamValueInSection("full screen", "not added section"));
+    EXPECT_THROW(im.getParamValueInSection("not added param", "screen"), NotFoundException);
+    EXPECT_THROW(im.getParamValueInSection("full screen", "not added section"), NotFoundException);
     im.changeSectionName("screen", "game screen");
     EXPECT_TRUE(im.getConfiguration().find("game screen") != im.getConfiguration().end());
     EXPECT_TRUE(im.getConfiguration().at("game screen")->find("full screen") != im.getConfiguration().at("game screen")->end());
-    EXPECT_EQ(im.getParamValueInSection("full screen", "game scsreen"), "true");
+    EXPECT_EQ(im.getParamValueInSection("full screen", "game screen"), "true");
     EXPECT_EQ(im.getCommentFromSection("game screen"), "this is a comment");
-    EXPECT_ANY_THROW(im.changeSectionName("not added section", "fake section name"));
+    EXPECT_THROW(im.changeSectionName("not added section", "fake section name"), NotFoundException);
     im.changeCommentInSection("this is another comment", "game screen");
     EXPECT_EQ(im.getCommentFromSection("game screen"), "this is another comment");
-    EXPECT_ANY_THROW(im.changeCommentInSection("fake new comment", "not added section"));
+    EXPECT_THROW(im.changeCommentInSection("fake new comment", "not added section"), NotFoundException);
     im.removeParamFromSection("full screen", "game screen");
-    EXPECT_TRUE(im.getConfiguration().at("screen")->find("full screen") == im.getConfiguration().at("screen")->end());
-    EXPECT_ANY_THROW(im.removeParamFromSection("not added param", "game screen"));
-    EXPECT_ANY_THROW(im.removeParamFromSection("full screen", "not added section"));
+    EXPECT_TRUE(im.getConfiguration().at("game screen")->find("full screen") == im.getConfiguration().at("game screen")->end());
+    EXPECT_THROW(im.removeParamFromSection("not added param", "game screen"), NotFoundException);
+    EXPECT_THROW(im.removeParamFromSection("full screen", "not added section"), NotFoundException);
     im.removeCommentFromSection("game screen");
-    EXPECT_ANY_THROW(im.getCommentFromSection("game screen"));
+    EXPECT_THROW(im.getCommentFromSection("game screen"), NotFoundException);
     im.removeSection("game screen");
     EXPECT_TRUE(im.getConfiguration().find("game screen") == im.getConfiguration().end());
-    EXPECT_ANY_THROW(im.removeSection("not added section"));
-    }
+    EXPECT_THROW(im.removeSection("not added section"), NotFoundException);
+}
 
-    TEST(INITest, IOTest){
+TEST(INITest, IOTest){
     INIManager im;
     im.addSection("screen");
     im.addParamToSection("full screen", "true", "screen");
@@ -70,7 +70,7 @@ TEST(INITest, managerTest){
     im.addParamToSection("sensibility", "0.5", "game option");
     im.addParamToSection("aimbot", "true", "game option");
     im.changeSectionName("screen", "game screen");
-    im.addCommentToSection("game option", "this is a cool comment");
+    im.addCommentToSection("this is a cool comment", "game option");
     im.removeParamFromSection("height", "resolution");
     im.changeParamInSection("full screen", "false", "game screen");
     im.writeFile("configTest.ini");
@@ -87,4 +87,3 @@ TEST(INITest, managerTest){
     EXPECT_EQ(im.getCommentFromSection("game screen"), "commento a caso");
     EXPECT_EQ(im.getCommentFromSection("game option"), "this is a cool comment");
 }
-

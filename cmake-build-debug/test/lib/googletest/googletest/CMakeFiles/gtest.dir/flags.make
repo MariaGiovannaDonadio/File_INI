@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/Users/giorgiavans/Documents/laboratorio-programmazione/test/lib/googletest/googletest/include -I/Users/giorgiavans/Documents/laboratorio-programmazione/test/lib/googletest/googletest
 
-CXX_FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -Wall -Wshadow -Wconversion -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Wchar-subscripts -Winline -Wredundant-decls -std=c++14
+CXX_FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk  -DGTEST_HAS_PTHREAD=1   -std=c++14
 
