@@ -55,11 +55,6 @@ void INIManager::writeFile(std::string fileName) {
     outfile.close();
 }
 
-const std::map<std::string, std::unique_ptr<std::map<std::string, std::string>>> &
-INIManager::getConfiguration() const {
-    return configuration;
-}
-
 const std::map<std::string, std::string> &INIManager::getComments() const {
     return comments;
 }
@@ -144,6 +139,26 @@ std::list<std::string> INIManager::findParamSection(std::string key) {
         return sections;
     else
         throw NotFoundException("Param not found");
+}
+
+std::list<std::string> INIManager::getAllSections() {
+    std::list<std::string> sections;
+    for(auto &section : configuration) {
+        sections.push_back(section.first);
+    }
+    return sections;
+}
+
+bool INIManager::sectionExists(std::string section){
+    return configuration.find(section) != configuration.end();
+}
+
+bool INIManager::sectionKeyExists(std::string section, std::string key){
+    if(sectionExists(section)) {
+        return configuration[section]->find(key) != configuration[section]->end();
+    }
+    else
+        throw NotFoundException("Section not found");
 }
 
 void INIManager::addCommentToSection(std::string comment, std::string section) {

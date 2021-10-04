@@ -29,7 +29,10 @@ public:
 
     std::list<std::string> findParamSection(std::string key);
 
-    const std::map<std::string, std::unique_ptr<std::map<std::string, std::string> >> &getConfiguration() const;
+    std::list<std::string> getAllSections();
+    bool sectionExists(std::string section);
+    bool sectionKeyExists(std::string section, std::string key);
+
     const std::map<std::string, std::string> &getComments() const;
 
 private:
